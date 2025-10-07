@@ -1,0 +1,38 @@
+<div class="login-container">
+  <div class="header-logo">
+    <img src="./assets/images/shopping-cart.png" alt="logo">
+    <h1>HeHeMarket</h1>
+  </div>
+  <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h2>Login</h2>
+
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" formControlName="username" placeholder="input username">
+
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" formControlName="password" placeholder="input password">
+    </div>
+    @if (errorMessage) {
+      <div class="error-message">
+        {{ errorMessage }}
+      </div>
+    }
+    <button type="submit" [disabled]="loginForm.invalid || isLoading">
+      @if (!isLoading) {
+        <span>Login</span>
+      } @else {
+        <span>Loading...</span>
+      }
+    </button>
+
+    <div class="extra-links">
+      <a routerLink="/forgot-password">Forgot password?</a>
+      <span>|</span>
+      <a routerLink="/register">Register</a>
+    </div>
+  </form>
+</div>

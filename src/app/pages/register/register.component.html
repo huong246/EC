@@ -1,0 +1,67 @@
+<div class="register-container">
+  <div class="header-logo">
+    <img src="./assets/images/shopping-cart.png" alt="logo">
+    <h1>HeHeMarket</h1>
+  </div>
+  <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <h2>Register</h2>
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" formControlName="username" placeholder="Input username">
+    </div>
+
+    <div class="form-group">
+      <label for="fullName">FullName</label>
+      <input type="text" id="fullName" formControlName="fullName" placeholder="Input FullName">
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" formControlName="email" placeholder="Input email">
+    </div>
+
+    <div class="form-group">
+      <label for="phoneNumber">PhoneNumber</label>
+      <input type="tel" id="phoneNumber" formControlName="phoneNumber" placeholder="Input phoneNumber">
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" formControlName="password" placeholder="At least 8 characters">
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">ConfirmPassword</label>
+      <input type="password" id="confirmPassword" formControlName="confirmPassword" placeholder="ConfirmPassword">
+      @if (registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched) {
+        <div class="validation-error">
+         Password do not match.
+        </div>
+      }
+    </div>
+
+    @if (errorMessage) {
+      <div class="error-message">
+        {{ errorMessage }}
+      </div>
+    }
+    @if (successMessage) {
+      <div class="success-message">
+        {{ successMessage }}
+      </div>
+    }
+
+    <button type="submit" [disabled]="registerForm.invalid || isLoading">
+      @if (!isLoading) {
+        <span>Register</span>
+      } @else {
+        <span>Loading...</span>
+      }
+    </button>
+
+    <div class="extra-links">
+      <span>Already have an account?</span>
+      <a routerLink="/login">Login</a>
+    </div>
+  </form>
+</div>

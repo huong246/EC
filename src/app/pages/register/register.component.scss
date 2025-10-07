@@ -1,0 +1,134 @@
+// src/app/pages/register/register.component.scss
+
+.register-container {
+  display: flex;
+  justify-content: center; //can giua theo chieu ngang
+  align-items: center; //can giua theo chieu doc
+  gap: 120px;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+}
+.header-logo
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f5c6cb;
+  padding: 50px;
+  border-radius: 100px;
+}
+.header-logo img
+{
+  width: 320px;
+  height: 320px;
+}
+.header-logo h1
+{
+  font-size: 48px;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: 700;
+  color: #333333;
+}
+.register-form {
+  padding: 40px;
+  background: white;
+  border-radius: 50px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+
+  h2 {
+    margin-bottom: 24px;
+    color: #333333;
+    background-color: #f5c6cb;
+    border-radius: 60px;
+    height: 30px;
+
+
+  }
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background-color: #f5c6cb; // Màu xanh lá cho đăng ký
+  color: #333333;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled):hover {
+    background-color: #d4edda;
+  }
+}
+
+.error-message, .success-message, .validation-error {
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.error-message {
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+}
+.validation-error {
+  color: #721c24;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.success-message {
+  color: #f5c6cb;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+}
+
+.extra-links {
+  margin-top: 20px;
+  font-size: 14px;
+
+  a {
+    color: #333333;
+    text-decoration: none;
+    margin-left: 5px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  span {
+    color: #6c757d;
+  }
+}

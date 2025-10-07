@@ -1,0 +1,46 @@
+<app-header (search)="handleSearch($event)"></app-header>
+<main class="container">
+  <div class="secondary-part">
+    <h3>Category</h3>
+    <hr>
+    @if (categories$ | async; as categories) {
+      <div class="category-list">
+        @for (category of categories; track category.id) {
+          <button class="category-button" (click)="onCategoryClick(category.id)">
+            {{ category.name }}
+          </button>
+        }
+      </div>
+    } @else {
+      <p>Loading categories...</p>
+    }
+  </div>
+
+  <div class="main-part">
+    <h2>Home page</h2>
+    <hr>
+    @if (items$ | async; as items) {
+      <div class="product-grid">
+
+        @for (item of items; track item.id) {
+
+          <div class="product-card">
+            <img [src]="getFullImageUrl(item.imageAvatarUrl)"
+                 alt="{{ item.name }}"
+                 loading="eager">
+            <div class="product-info">
+              <h3>{{ item.name }}</h3>
+              <p class="product-price">{{ item.price | number:'1.0-0' }} đ</p>
+            </div>
+          </div>
+        } @empty {
+          <div class="no-results">
+            <p>Not found item</p>
+          </div>
+        }
+      </div>
+    } @else {
+      <p>Loading item...</p>
+    }
+  </div>
+</main>
