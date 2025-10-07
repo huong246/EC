@@ -2,7 +2,7 @@ import {Component, inject, OnInit, signal} from '@angular/core';
 import {HeaderComponent} from '../../layout/header/header.component';
 import {CommonModule} from '@angular/common';
 import {ItemService} from '../../services/item.service';
-import {Observable} from 'rxjs';
+import {combineLatest, Observable, switchMap} from 'rxjs';
 import {Item} from '../../models/product/item.model';
 import {PagedResponse} from '../../models/shared/api-response.model';
 import {map} from 'rxjs/operators';
@@ -17,11 +17,12 @@ import {CreateItemRequest} from '../../models/product/item.model';
 import {HttpClient} from '@angular/common/http';
 import {CategoryService} from '../../services/category.service';
 import {Category} from '../../models/product/category.model';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HeaderComponent],
+  imports: [CommonModule, HeaderComponent, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -30,7 +31,8 @@ export class HomeComponent implements OnInit {
   private customerUpSellerService = inject(CustomerUpSellerService);
   private authService = inject(AuthService);
   private categoryService = inject(CategoryService);
-
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
 
   items$!: Observable<Item[]>;
   categories$!: Observable<Category[]>;
@@ -42,28 +44,41 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
 
     this.currentUserRole.set(this.authService.getCurrentUserRole());
-    this.items$ = this.itemService.getRandomItems();
+
     this.categories$ = this.categoryService.getAllCategories();
+
+    this.items$ = combineLatest([this.route.paramMap, this.route.queryParamMap]).pipe(
+      switchMap(([params, queryParams]) =>{
+        const categoryId = params.get('categoryId');
+        const searchTerm = queryParams.get('searchTerm');
+        const request: GetItemsRequest ={page:1, pageSize:12};
+        if(categoryId)
+        {
+          request.categoryId = categoryId;
+          return this.itemService.getItems(request).pipe(map(res=>res.items));
+        }
+        if(searchTerm)
+        {
+          request.searchTerm = searchTerm;
+          return this.itemService.getItems(request).pipe(map(res=>res.items));
+        }
+        return this.itemService.getRandomItems();
+      })
+    );
   }
 
-  onCategoryClick(categoryId: string): void
-  {
-    console.log('Fetching items for category', categoryId);
-    this.items$ = this.itemService.getItems({categoryId: categoryId, page:1, pageSize: 10}).pipe(
-      map(pagedResponse => pagedResponse.items)
-    );
-  }
+  // onCategoryClick(categoryId: string): void
+  // {
+  //   console.log('Fetching items for category', categoryId);
+  //   this.items$ = this.itemService.getItems({categoryId: categoryId, page:1, pageSize: 10}).pipe(
+  //     map(pagedResponse => pagedResponse.items)
+  //   );
+  // }
   handleSearch(searchTerm: string): void
   {
-    console.log('Search term', searchTerm);
-    const searchRequest: GetItemsRequest = {
-      searchTerm: searchTerm,
-      page: 1,
-      pageSize: 10
-    };
-    this.items$ = this.itemService.getItems({searchTerm: searchTerm}).pipe(
-      map(pageResponse => pageResponse.items),
-    );
+    this.router.navigate(['/home'], {
+      queryParams: { searchTerm: searchTerm }
+    });
   }
   public readonly baseUrl = environment.serverUrl;
 

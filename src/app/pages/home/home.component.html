@@ -6,9 +6,9 @@
     @if (categories$ | async; as categories) {
       <div class="category-list">
         @for (category of categories; track category.id) {
-          <button class="category-button" (click)="onCategoryClick(category.id)">
+          <a class="category-button" [routerLink]="['/home/category', category.id]">
             {{ category.name }}
-          </button>
+          </a>
         }
       </div>
     } @else {

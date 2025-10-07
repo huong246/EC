@@ -41,10 +41,22 @@ export interface UpdateItemRequest {
 export interface GetItemsRequest {
   categoryId?: string | null;
   searchTerm?: string | null;
+  sortBy?: string | null;
   minPrice?: number | null;
   maxPrice?: number | null;
-  page?: number; // <-- Thêm '?' nếu thiếu
-  pageSize?: number; // <-- Thêm '?' nếu thiếu
+  page?: number;
+  pageSize?: number;
+}
+export interface ItemResponse {
+  id:string;
+  name?: string | null;
+  price?: number | null;
+  description?: string | null;
+  color?: string | null;
+  size?: string | null;
+  catrgoryId: string;
+  categoryName?:string | null;
+  imageAvatarUrl?: string | null;
 }
 export interface CreateItemResponse {
   item: Item;

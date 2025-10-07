@@ -6,8 +6,9 @@
     <a routerLink="/home">HeheMarket</a>
   </div>
   <div class="search-bar">
-    <input type="text" placeholder="Search item..." (keyup.enter)="onSearch($event)">
-    <a href="#">Search</a>
+    <input type="text" placeholder="Search item..." #searchInput
+           (keyup.enter)="onSearch(searchInput.value)">
+    <button (click)="onSearch(searchInput.value)">Search</button>
   </div>
   <div class="user-actions">
     <button (click)="logout()" class="logout-button">Logout</button>

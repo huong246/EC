@@ -16,10 +16,8 @@ export class HeaderComponent {
 
   //khai bao 1 su kien dau ra=> nguoi dung nhap tim kiem trong header thi se phat ra emit du lieu tim kiem cho component cha xu ly
   @Output() search = new EventEmitter<string>();
-//phuong thuc nay duoc goi khi co su kien tim kiem xay ra
-  onSearch(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.search.emit(input.value);
+  onSearch(searchTerm: string): void {
+    this.search.emit(searchTerm);
   }
 //su dung subscribe de xu ly ket qua
   logout(): void {

@@ -27,10 +27,11 @@ export class ItemService {
     if(request.pageSize) params = params.set('pageSize', request.pageSize.toString());
     if(request.searchTerm) params = params.set('searchTerm', request.searchTerm);
     if(request.categoryId) params = params.set('categoryId', request.categoryId);
+    if(request.sortBy) params = params.set('sortBy', request.sortBy);
     if(request.minPrice) params = params.set('minPrice', request.minPrice.toString());
     if(request.maxPrice) params = params.set('maxPrice', request.maxPrice.toString());
 
-    return this.http.get<PagedResponse<Item>>(`${this.categoryApiUrl}/get-items`)
+    return this.http.get<PagedResponse<Item>>(`${this.categoryApiUrl}/get-items`, {params: params});
   }
 
   createItem(data: CreateItemRequest): Observable<CreateItemResponse>
