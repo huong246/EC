@@ -22,3 +22,4 @@ export interface UpdateQuantityItemInCartRequest
   itemId:string;
   quantity:number;
 }
+

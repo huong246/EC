@@ -30,7 +30,9 @@
                  loading="eager">
             <div class="product-info">
               <h3>{{ item.name }}</h3>
-              <p class="product-price">{{ item.price | number:'1.0-0' }} đ</p>
+              <p class="price">{{ item.price | number:'1.0-0' }} đ</p>
+              <button>Xem chi tiết</button>
+              <button [routerLink]="['/home/cart', item.id]">Thêm vào giỏ hàng</button>
             </div>
           </div>
         } @empty {

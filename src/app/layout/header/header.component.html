@@ -10,6 +10,12 @@
            (keyup.enter)="onSearch(searchInput.value)">
     <button (click)="onSearch(searchInput.value)">Search</button>
   </div>
+  <div class="shop-actions">
+    <button routerLink="/shop">Shop</button>
+  </div>
+  <div class="create-shop">
+    <button routerLink="/shop/create_shop">Create Shop</button>
+  </div>
   <div class="user-actions">
     <button (click)="logout()" class="logout-button">Logout</button>
   </div>

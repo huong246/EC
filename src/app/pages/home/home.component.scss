@@ -110,6 +110,10 @@
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
 
   &:hover {
@@ -125,15 +129,24 @@
     display: block;
   }
 }
+.product-card p{
+  justify-content: center;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
 
 .product-info {
   padding: 1rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
 
   h3 {
     font-size: 1.3rem;
     color: var(--primary-text-color);
-    margin: 0 0 0.5rem 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -148,7 +161,7 @@
 }
 
 
-.product-price {
+.product-info price {
   font-size: 1.2rem;
   font-weight: bold;
   color: var(--accent-color);

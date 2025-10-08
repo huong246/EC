@@ -18,6 +18,8 @@ import {HttpClient} from '@angular/common/http';
 import {CategoryService} from '../../services/category.service';
 import {Category} from '../../models/product/category.model';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {AddItemToCartRequest} from '../../models/order/cart.model';
+import {CartService} from '../../services/cart.service';
 
 @Component({
   selector: 'app-home',
@@ -33,6 +35,7 @@ export class HomeComponent implements OnInit {
   private categoryService = inject(CategoryService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private cartService = inject(CartService);
 
   items$!: Observable<Item[]>;
   categories$!: Observable<Category[]>;
@@ -87,5 +90,26 @@ export class HomeComponent implements OnInit {
       return `${this.baseUrl}${relativePath}`;
     }
     return './assets/images/Default.jpg';
+  }
+
+  addItemToCart(itemId: string): void
+  {
+    const request: AddItemToCartRequest = {
+      itemId: itemId,
+      quantity: 1
+    };
+    this.cartService.addItemToCart(request).subscribe(
+      {
+        next: () =>
+        {
+          console.log('add item to cart successfully');
+
+        },
+        error: (err)=>
+        {
+          console.error('add item failed',err);
+        }
+      }
+    )
   }
 }

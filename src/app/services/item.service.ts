@@ -10,10 +10,11 @@ import {PagedResponse} from '../models/shared/api-response.model';
   providedIn: 'root'
 })
 export class ItemService {
-  private http = inject(HttpClient);
+
   private itemApiUrl = `${environment.apiUrl}/Item`; //anh xa toi ItemController
   private categoryApiUrl = `${environment.apiUrl}/Category`;
 
+  constructor(private http: HttpClient) { }
   getRandomItems(count: number =10): Observable<Item[]>
   {
     const url =`${this.itemApiUrl}/list_items_random`;

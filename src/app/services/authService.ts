@@ -46,6 +46,18 @@ export class AuthService {
       localStorage.setItem('refreshToken', tokens.refreshToken);
     }
   }
+  isLoggedIn(): boolean {
+    return !!this.getAccessToken();
+  }
+
+  getAccessToken(): string | null {
+    return localStorage.getItem('accessToken');
+  }
+
+  private getRefreshToken(): string | null {
+    return localStorage.getItem('refreshToken');
+  }
+
   private handleError(error: HttpErrorResponse): Observable<never> {
 
     let errorMessage = 'An unknown error occurred!';
@@ -77,18 +89,6 @@ export class AuthService {
       })
     );
   }
-  isLoggedIn(): boolean {
-    return !!this.getAccessToken();
-  }
-
-  getAccessToken(): string | null {
-    return localStorage.getItem('accessToken');
-  }
-
-  private getRefreshToken(): string | null {
-    return localStorage.getItem('refreshToken');
-  }
-
   forgotPassword(data: ForgotPasswordRequest): Observable<SimpleApiResponse>
   {
     const request: ForgotPasswordRequest = {email: data.email};
